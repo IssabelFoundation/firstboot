@@ -187,7 +187,7 @@ rm -rf $RPM_BUILD_ROOT
   the AMI password.
   SVN Rev[6317]
 - FIXED: elastix-admin-passwords: add check to verify whether a MySQL table
-  exists, and use it to skip MySQL updates that only work on freePBX 2.11. Fixes
+  exists, and use it to skip MySQL updates that only work on issabelPBX 2.11. Fixes
   part of Elastix bug #1808.
   SVN Rev[6316]
 
@@ -208,12 +208,12 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Aug 21 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: elastix-admin-passwords: Reversed and fixed some changes in this
-  file, Applying the new changes for compatibility with the new freePBX.
+  file, Applying the new changes for compatibility with the new issabelPBX.
   SVN Rev[5780]
 
 * Wed Aug 21 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: elastix-admin-passwords: It was changed the way that its stored the
-  password for FreePBX admin for a better interaction with freePBX.
+  password for FreePBX admin for a better interaction with issabelPBX.
   SVN Rev[5779]
 
 * Thu Jan 31 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
@@ -247,7 +247,7 @@ rm -rf $RPM_BUILD_ROOT
   Original bug was caused by forgotten blanking of password after regexp failed.
   SVN Rev[4526]
 - CHANGED: elastix-firstboot: Remove ampersand from accepted characters in
-  passwords, since freePBX update chokes on these. Fixes Elastix bug #1432.
+  passwords, since issabelPBX update chokes on these. Fixes Elastix bug #1432.
   SVN Rev[4525]
 
 * Mon Sep 03 2012 Luis Abarca <labarca@palosanto.com> 2.3.0-9
@@ -376,7 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri Sep 09 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-3
 - CHANGED: elastix-firstboot and change-passwords, the
-  ARI_ADMIN_PASSWORD is also changed with the password for freePBX admin
+  ARI_ADMIN_PASSWORD is also changed with the password for issabelPBX admin
   SVN Rev[2942]
 
 * Thu Sep 01 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-2
@@ -385,7 +385,7 @@ rm -rf $RPM_BUILD_ROOT
   SVN Rev[2926]
 
 * Wed Aug 24 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-1
-- NEW: new script that change the passwords of mysql, freePBX,
+- NEW: new script that change the passwords of mysql, issabelPBX,
   user admin, fop, cyrus
   SVN Rev[2894]
 - CHANGED: elastix-firstboot, if mysql is not running, elastix-firstboot
