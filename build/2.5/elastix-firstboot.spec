@@ -1,6 +1,6 @@
 Summary: Issabel First Boot Setup
 Name:    elastix-firstboot
-Version: 4.0.0
+Version: 2.5.0
 Release: 3
 License: GPL
 Group:   Applications/System
@@ -12,9 +12,6 @@ Requires: sed, grep
 Requires: coreutils
 Conflicts: elastix-mysqldbdata
 Requires(post): chkconfig, /bin/cp
-
-# commands: /bin/chvt
-Requires: kbd
 
 Requires: /usr/sbin/saslpasswd2
 
@@ -135,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/elastix-admin-passwords
 
 %changelog
-* Thu Jan 14 2016 Luis Abarca <labarca@palosanto.com> 4.0.0-3
+* Thu Jan 14 2016 Luis Abarca <labarca@palosanto.com> 2.5.0-3
 - CHANGED: firstboot - Build/elastix-firstboot.spec:  update specfile with latest
   SVN history. Bumped Version and Release in specfile.
 
@@ -145,28 +142,29 @@ rm -rf $RPM_BUILD_ROOT
   adminpasswd.
   SVN Rev[7415]
 
-* Mon Dec 21 2015 Alex Villacís Lasso <a_villacis@palosanto.com>
+* Mon Dec 21 2015 Alex Villacís Lasso <a_villacis@palosanto.com> 
 - FIXED: chvt is required for VT switching for password request on Elastix 4.
   SVN Rev[7405]
+
+* Mon Dec 21 2015 Alex Villacís Lasso <a_villacis@palosanto.com>
 - FIXED: elastix-admin-passwords: saslpasswd2 is required for
   elastix-admin-passwords.
   SVN Rev[7404]
 
-* Tue Oct 27 2015 Luis Abarca <labarca@palosanto.com> 4.0.0-2
-- CHANGED: firstboot - Build/elastix-firstboot.spec:  update specfile with latest
-  SVN history. Bumped Version and Release in specfile.
+* Wed Oct 28 2015 Luis Abarca <labarca@palosanto.com> 
+- ADDED: branch/2.5.0 - setup/build/4: Due to Elastix 2.5 in Centos 7 share
+  rpms with Elastix 2.5 we decide to keep inside the branch 2.5 in a separate
+  folder only the changes exclusively made for Elastix 4.
+  SVN Rev[7262]
 
 * Fri Oct 23 2015 Alex Villacís Lasso <a_villacis@palosanto.com>
 - CHANGED: firstboot: massive s/www.elastix.org/www.elastix.com/g
   SVN Rev[7234]
 
-* Tue Sep 29 2015 Luis Abarca <labarca@palosanto.com> 4.0.0-1
-- CHANGED: firstboot - Build/elastix-firstboot.spec:  update specfile with latest
-  SVN history. Bumped Version and Release in specfile.
-
 * Fri Feb 13 2015 Luis Abarca <labarca@palosanto.com> 2.5.0-2
 - CHANGED: firstboot - Build/elastix-firstboot.spec:  update specfile with latest
   SVN history. Bumped Version and Release in specfile.
+  SVN Rev[6851]
 
 * Fri Feb 13 2015 Alex Villacís Lasso <a_villacis@palosanto.com>
   Framework: create systemd service file for elastix-firstboot
@@ -187,7 +185,7 @@ rm -rf $RPM_BUILD_ROOT
   the AMI password.
   SVN Rev[6317]
 - FIXED: elastix-admin-passwords: add check to verify whether a MySQL table
-  exists, and use it to skip MySQL updates that only work on issabelPBX 2.11. Fixes
+  exists, and use it to skip MySQL updates that only work on freePBX 2.11. Fixes
   part of Elastix bug #1808.
   SVN Rev[6316]
 
@@ -208,12 +206,12 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Aug 21 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: elastix-admin-passwords: Reversed and fixed some changes in this
-  file, Applying the new changes for compatibility with the new issabelPBX.
+  file, Applying the new changes for compatibility with the new freePBX.
   SVN Rev[5780]
 
 * Wed Aug 21 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: elastix-admin-passwords: It was changed the way that its stored the
-  password for FreePBX admin for a better interaction with issabelPBX.
+  password for FreePBX admin for a better interaction with freePBX.
   SVN Rev[5779]
 
 * Thu Jan 31 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
@@ -247,7 +245,7 @@ rm -rf $RPM_BUILD_ROOT
   Original bug was caused by forgotten blanking of password after regexp failed.
   SVN Rev[4526]
 - CHANGED: elastix-firstboot: Remove ampersand from accepted characters in
-  passwords, since issabelPBX update chokes on these. Fixes Elastix bug #1432.
+  passwords, since freePBX update chokes on these. Fixes Elastix bug #1432.
   SVN Rev[4525]
 
 * Mon Sep 03 2012 Luis Abarca <labarca@palosanto.com> 2.3.0-9
@@ -376,7 +374,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Fri Sep 09 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-3
 - CHANGED: elastix-firstboot and change-passwords, the
-  ARI_ADMIN_PASSWORD is also changed with the password for issabelPBX admin
+  ARI_ADMIN_PASSWORD is also changed with the password for freePBX admin
   SVN Rev[2942]
 
 * Thu Sep 01 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-2
@@ -385,7 +383,7 @@ rm -rf $RPM_BUILD_ROOT
   SVN Rev[2926]
 
 * Wed Aug 24 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-1
-- NEW: new script that change the passwords of mysql, issabelPBX,
+- NEW: new script that change the passwords of mysql, freePBX,
   user admin, fop, cyrus
   SVN Rev[2894]
 - CHANGED: elastix-firstboot, if mysql is not running, elastix-firstboot
