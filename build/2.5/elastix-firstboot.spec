@@ -85,7 +85,7 @@ if [ $1 -eq 1 ] ; then
 	if [ -e /var/lib/mysql/mysql ] ; then
 		if [ ! -e /etc/elastix.conf ] ; then
 			echo "Installing in active system - legacy password written to /etc/elastix.conf"
-			echo "mysqlrootpwd=eLaStIx.2oo7" >> /etc/elastix.conf
+			echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/elastix.conf
 		fi
                 if [ -f /etc/elastix.conf  ] ; then
                         grep 'cyrususerpwd' /etc/elastix.conf &> /dev/null
@@ -103,7 +103,7 @@ fi
 if [ $1 -eq 2 ] ; then
 	if [ ! -e /etc/elastix.conf ] ; then
 		echo "Updating in active system - legacy password written to /etc/elastix.conf"
-		echo "mysqlrootpwd=eLaStIx.2oo7" >> /etc/elastix.conf
+		echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/elastix.conf
 	fi
 	if [ -f /etc/elastix.conf  ] ; then
 		grep 'cyrususerpwd' /etc/elastix.conf &> /dev/null
