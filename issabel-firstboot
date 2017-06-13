@@ -44,7 +44,7 @@ start() {
     [ $ret -eq 0 -a -d /var/lock/subsys ] && touch /var/lock/subsys/issabel-firstboot
 
     amportal chown
-    amportal a m
+    amportal a r 
     amportal restart
 
     nohup /usr/src/geoip_install.sh &
