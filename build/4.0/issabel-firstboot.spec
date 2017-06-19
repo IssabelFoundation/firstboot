@@ -56,8 +56,7 @@ Before=asterisk.service
 [Service]
 Type=oneshot
 ExecStart=/bin/bash -c "chvt 2 && /usr/bin/issabel-admin-passwords --init && chvt 1"
-ExecStartPre=/usr/bin/echo -e \033%G
-ExecStartPre=-/usr/src/geoip_install.sh 
+ExecStartPre=-/bin/bash -c "chvt 2 && /usr/src/geoip_install.sh && chvt 1"
 ExecReload=/bin/kill -HUP $MAINPID
 RemainAfterExit=no
 WorkingDirectory=/
