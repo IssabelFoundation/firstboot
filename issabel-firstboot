@@ -38,6 +38,8 @@ issabel_activate_firewall(){
 start() {
     ret=0
 
+    /sbin/amportal chown >/dev/null 2>&1
+
     /usr/bin/issabel-admin-passwords --init
     ret=$?
 
