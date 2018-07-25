@@ -35,6 +35,31 @@ issabel_activate_firewall(){
     return $salida
 }
 
+check_manager_issabelPBX(){
+    grep "^writetimeout" /etc/asterisk/manager.conf >/dev/null
+    if [ $? -gt 0 ]; then
+        echo "manager.conf file from samples, needs to be updated"
+        # No writetimeout in manager.conf, it might be the stock asterisk one, we need to replace it with the issasbelPBX one
+        issabel_ami_password=`grep amiadminpwd= /etc/issabel.conf | sed 's/^amiadminpwd=//'`
+        issabel_mysql_password=`grep mysqlrootpwd= /etc/issabel.conf | sed 's/^mysqlrootpwd=//'`
+        if [ -f /etc/asterisk.issabel/manager.conf ]; then
+            echo "cp  /etc/asterisk.issabel/manager.conf /etc/asterisk"
+            cp  /etc/asterisk.issabel/manager.conf /etc/asterisk
+            ls -la /etc/asterisk/manager.conf
+            sed -i "s/AMPMGRPASS/${issabel_ami_password}/" /etc/asterisk/manager.conf
+            service asterisk restart
+            /var/www/html/admin/modules/framework/install_amp --username=root --password=${issabel_mysql_password}
+            service asterisk restart
+        else
+          echo "no asterisk.issabel manager.conf file present"
+       fi
+   else
+       echo "manager.conf ok"
+       cat /etc/asterisk/manager.conf
+   fi
+   sleep 10
+}
+
 start() {
     ret=0
 
@@ -42,6 +67,8 @@ start() {
 
     /usr/bin/issabel-admin-passwords --init
     ret=$?
+
+    check_manager_issabelPBX
 
     [ $ret -eq 0 -a -d /var/lock/subsys ] && touch /var/lock/subsys/issabel-firstboot
 
