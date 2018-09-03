@@ -2,7 +2,7 @@
 Summary: Issabel First Boot Setup
 Name:    issabel-%{modname}
 Version: 4.0.0
-Release: 2
+Release: 3
 License: GPL
 Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
@@ -71,6 +71,23 @@ TTYVHangup=yes
 WantedBy=default.target
 ISSABELFIRSTBOOT
     systemctl enable issabel-firstboot.service
+
+    cat > /usr/lib/systemd/system/amportal-reload.service <<'AMPORTALRELOAD'
+[Unit]
+Description=amportal-reload.service
+After=asterisk.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/amportal a r
+RemainAfterExit=no
+WorkingDirectory=/
+
+[Install]
+WantedBy=default.target
+
+AMPORTALRELOAD
+    systemctl enable amportal-reload.service
 else
     chkconfig --del issabel-firstboot
     chkconfig --add issabel-firstboot
