@@ -8,7 +8,7 @@ Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
 BuildRoot: %{_tmppath}/%{modname}-%{version}-root
 BuildArch: noarch
-Requires: mysql, mysql-server, dialog
+Requires: mysql, mariadb-server, dialog
 Requires: sed, grep
 Requires: coreutils
 Conflicts: elastix-mysqldbdata
