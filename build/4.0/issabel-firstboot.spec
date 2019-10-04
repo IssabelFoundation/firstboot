@@ -2,7 +2,7 @@
 Summary: Issabel First Boot Setup
 Name:    issabel-%{modname}
 Version: 4.0.0
-Release: 3
+Release: 4
 License: GPL
 Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
@@ -56,7 +56,7 @@ Before=asterisk.service
 [Service]
 Type=oneshot
 ExecStart=/bin/bash -c "chvt 2 && /usr/bin/issabel-admin-passwords --init && chvt 1"
-ExecStartPre=-/bin/bash -c "chvt 2 && /usr/src/geoip_install.sh && chvt 1"
+#ExecStartPre=-/bin/bash -c "chvt 2 && /usr/src/geoip_install.sh && chvt 1"
 ExecReload=/bin/kill -HUP $MAINPID
 RemainAfterExit=no
 WorkingDirectory=/
