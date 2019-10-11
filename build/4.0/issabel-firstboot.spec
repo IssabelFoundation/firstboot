@@ -39,8 +39,10 @@ mkdir -p $RPM_BUILD_ROOT/var/spool/issabel-mysqldbscripts/
 mkdir -p $RPM_BUILD_ROOT/usr/share/issabel-firstboot/
 mkdir -p $RPM_BUILD_ROOT/usr/bin/
 mkdir -p $RPM_BUILD_ROOT/usr/sbin/
+mkdir -p $RPM_BUILD_ROOT/usr/local/sbin/
 cp issabel-firstboot $RPM_BUILD_ROOT/etc/init.d/
 cp change-passwords issabel-admin-passwords $RPM_BUILD_ROOT/usr/bin/
+cp generate_self_signed.sh $RPM_BUILD_ROOT/usr/local/sbin
 mv compat-dbscripts/ $RPM_BUILD_ROOT/usr/share/issabel-firstboot/
 
 %post
@@ -152,5 +154,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/issabel-firstboot/compat-dbscripts/02-asteriskuser-password.sql
 /usr/bin/change-passwords
 /usr/bin/issabel-admin-passwords
+%attr(755, root, root) /usr/local/sbin/generate_self_signed.sh
 
 %changelog
