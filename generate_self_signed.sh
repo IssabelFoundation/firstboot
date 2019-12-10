@@ -13,7 +13,7 @@ if [ "x${FQDN}" = "x" -o ${#FQDN} -gt 59 ]; then
 fi
 
 cat << EOF | /usr/bin/openssl req -new -key /etc/pki/tls/private/localhost.key \
-         -x509 -sha256 -days 365 -set_serial $RANDOM -extensions v3_req \
+         -x509 -sha256 -days 1096 -set_serial $RANDOM -extensions v3_req \
          -out /etc/pki/tls/certs/localhost.crt 2>/dev/null
 --
 SomeState
