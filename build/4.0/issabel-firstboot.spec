@@ -2,7 +2,7 @@
 Summary: Issabel First Boot Setup
 Name:    issabel-%{modname}
 Version: 4.0.0
-Release: 4
+Release: 5
 License: GPL
 Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
@@ -11,6 +11,7 @@ BuildArch: noarch
 Requires: mysql, mariadb-server, dialog
 Requires: sed, grep
 Requires: coreutils
+Requires: cracklib
 Conflicts: elastix-mysqldbdata
 Requires(post): chkconfig, /bin/cp
 Obsoletes: elastix-firstboot
