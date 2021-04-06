@@ -32,7 +32,7 @@ jobs:
         port: ${{ secrets.REPOPORT }}
         key: ${{ secrets.BUILDKEY }}
         source: ${{ steps.rpm.outputs.rpm_dir_path }}
-        target: "/var/www/html/issabel/4/beta"
+        target: "rpm"
 
 
 #    - name: Upload artifact
