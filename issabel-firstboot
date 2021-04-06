@@ -40,10 +40,11 @@ start() {
 
     /sbin/amportal chown >/dev/null 2>&1
 
-    /usr/bin/issabel-change-language
 
     /usr/bin/issabel-admin-passwords --init
     ret=$?
+
+    /usr/bin/issabel-change-language
 
     [ $ret -eq 0 -a -d /var/lock/subsys ] && touch /var/lock/subsys/issabel-firstboot
 
