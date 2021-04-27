@@ -1,0 +1,38 @@
+#!/bin/bash
+function check_dialog()
+{
+    if ! dialog &> /dev/null
+    then 
+        exit 1
+    fi
+}
+
+function patreon()
+{
+  dialog --stdout --yes-label "Thank you. I will" --no-label "Naaah, get a real job" --backtitle "$BACKTITLE" \
+         --yesno "Please consider support Issabel development.\nhttps://www.patreon.com/issabel" \
+        7 55
+}
+
+function fake_delete()
+{
+for i in $(seq 0 10 100) ; do sleep 0.2; echo $i | dialog --stdout --gauge "Erasing hard drive..." 7 70 0; done
+}
+
+function joke()
+{
+  dialog --stdout --sleep 5 --backtitle "$BACKTITLE" \
+         --infobox "Naaah... Just a joke ;)\nLet's do it one more time." \
+        4 30
+}
+
+check_dialog
+patreon
+if [ $? -eq 1 ]
+then
+    fake_delete
+    joke
+    patreon
+fi
+    
+
