@@ -1,0 +1,101 @@
+#!/bin/bash
+function check_dialog()
+{
+    if ! dialog &> /dev/null
+    then 
+        echo "ERROR: dialog binary not found."
+        exit 1
+    fi
+}
+
+function check_astVer()
+{
+    astVersion=$(asterisk -rx "core show version" | cut -d"." -f1)
+    if [ "$astVersion" = "Asterisk 11" ] || [ -z "$astVersion" ]
+    then
+        exit 0
+    fi
+    if [ "$astVersion" = "Asterisk 13" ] 
+    then
+         optSIP="on"
+         optPJSIP="off"
+    else
+         optSIP="off"
+         optPJSIP="on"
+    fi
+}
+
+function check_database()
+{
+    if ! mysql -uroot -p$mysqlrootpwd asterisk -e "show tables" &> /dev/null
+    then
+        echo "ERROR: Cannot connect to Database."
+        exit 1
+    fi
+}
+function logo()
+{
+  dialog --stdout --sleep 1 --backtitle "$BACKTITLE" \
+         --infobox " O @ @\n @ @ O\n @ O O\n   O\nIssabel" \
+        7 11
+}
+BACKTITLE=Issabel
+check_astVer
+check_dialog
+source /etc/issabel.conf
+if [ -z $mysqlrootpwd ]
+then
+    echo "ERROR: Cannot load /etc/issabel.conf"
+    exit 1
+fi
+check_database
+selSIP=$((dialog --backtitle "Issabel" --no-tags \
+--radiolist "Select default SIP channel driver(default port 5060, secondary 5066):" 10 60 10 \
+ sip "chan_sip" $optSIP \
+ pjsip "chan_pjsip" $optPJSIP \
+ > /dev/tty) 2>&1)
+if [ -z $selSIP ]
+then
+    #No channel selected
+    exit 2
+fi
+
+#Set ports
+case $selSIP in
+    sip)
+        sipPort="5060"
+        sipTLS="5061"
+        sipWS="yes"
+        pjsipPort="5066"
+        pjsipTLS="5067"
+    ;;
+    pjsip)
+        sipPort="5066"
+        sipTLS="5067"
+        sipWS="no"
+        pjsipPort="5060"
+        pjsipTLS="5061"
+    ;;
+    *)
+        echo "Error settings ports"
+        exit 1
+    ;;
+esac
+
+(
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('bindport','$sipPort');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('bindport','$pjsipPort');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('tlsbindport','$sipTLS');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('tlsbindport','$pjsipTLS');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('websocket_enabled','$sipWS');"
+) &> /dev/null
+logo
+if ! amportal a r &> /dev/null
+then
+    clear
+    echo "ERROR: Cannot apply changes."
+    exit 3
+else
+    clear
+fi
+
