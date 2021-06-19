@@ -1,14 +1,23 @@
 %define modname firstboot
+
+%if 0%{?rhel} == 7
+ %define dist .el7
+%endif
+
 Summary: Issabel First Boot Setup
 Name:    issabel-firstboot
 Version: 4.0.0
-Release: 6
+Release: 6%{?dist}
 License: GPL
 Group:   Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{modname}-%{version}-root
 BuildArch: noarch
+%if 0%{?el7}
 Requires: mysql, mariadb-server, dialog
+%else
+Requires: mariadb, mariadb-server,dialog
+%endif
 Requires: sed, grep
 Requires: coreutils
 Requires: cracklib
