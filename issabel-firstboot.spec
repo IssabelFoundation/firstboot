@@ -13,11 +13,11 @@ Group:   Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{modname}-%{version}-root
 BuildArch: noarch
-%if 0%{?el7}
-Requires: mysql, mariadb-server, dialog
-%else
-Requires: mariadb, mariadb-server,dialog
-%endif
+#%if 0%{?el7}
+Requires: mysql, mysql-server, dialog
+#%else
+#Requires: mariadb, mariadb-server, dialog
+#%endif
 Requires: sed, grep
 Requires: coreutils
 Requires: cracklib
