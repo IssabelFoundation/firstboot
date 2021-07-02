@@ -5,7 +5,7 @@ if [ $? -ne 0 ]; then
 
 sed -i '/^keyUsage = .*/a extendedKeyUsage = serverAuth,clientAuth' /etc/pki/tls/openssl.cnf
 
-/usr/bin/openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > /etc/pki/tls/private/localhost.key 2> /dev/null
+/usr/bin/openssl genrsa 2048 > /etc/pki/tls/private/localhost.key 2> /dev/null
 
 FQDN=`hostname`
 if [ "x${FQDN}" = "x" -o ${#FQDN} -gt 59 ]; then
