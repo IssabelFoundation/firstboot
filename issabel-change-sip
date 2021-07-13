@@ -10,7 +10,7 @@ function check_dialog()
 
 function check_astVer()
 {
-    astVersion=$(asterisk -rx "core show version" | cut -d"." -f1)
+    astVersion=$(asterisk -V | cut -d"." -f1)
     if [ "$astVersion" = "Asterisk 11" ] || [ -z "$astVersion" ]
     then
         exit 0
