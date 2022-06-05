@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `cel`;
 CREATE TABLE `cel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `eventtype` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `eventtime` datetime NOT NULL,
+  `eventtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `cid_name` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `cid_num` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `cid_ani` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
