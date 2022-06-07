@@ -54,7 +54,7 @@ CREATE TABLE `cdr` (
   `dst_cnam` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `did` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   KEY `IDX_UNIQUEID` (`uniqueid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 DROP TABLE IF EXISTS `cel`;
@@ -85,17 +85,9 @@ CREATE TABLE `cel` (
   PRIMARY KEY (`id`),
   KEY `uniqueid_index` (`uniqueid`),
   KEY `linkedid_index` (`linkedid`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cdr`
---
-
-LOCK TABLES `cdr` WRITE;
-/*!40000 ALTER TABLE `cdr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cdr` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
