@@ -6,8 +6,8 @@
 
 Summary: Issabel First Boot Setup
 Name:    issabel-firstboot
-Version: 4.0.0
-Release: 6
+Version: 5.0.0
+Release: 1
 License: GPL
 Group:   Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
@@ -121,8 +121,9 @@ fi
 if [ $1 -eq 1 ] ; then
 	if [ -e /var/lib/mysql/mysql ] ; then
 		if [ ! -e /etc/issabel.conf ] ; then
-			echo "Installing in active system - legacy password written to /etc/issabel.conf"
-			echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/issabel.conf
+			echo "Installing in active system - creating empty /etc/issabel.conf"
+                        touch /etc/issabel.conf
+			#echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/issabel.conf
 		fi
                 if [ -f /etc/issabel.conf  ] ; then
                         grep 'cyrususerpwd' /etc/issabel.conf &> /dev/null
@@ -139,8 +140,9 @@ fi
 # legacy password so new modules continue to work.
 if [ $1 -eq 2 ] ; then
 	if [ ! -e /etc/issabel.conf ] ; then
-		echo "Updating in active system - legacy password written to /etc/issabel.conf"
-		echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/issabel.conf
+		echo "Updating in active system -  creating empty /etc/issabel.conf"
+                touch /etc/issabel.conf
+		#echo "mysqlrootpwd=iSsAbEl.2o17" >> /etc/issabel.conf
 	fi
 	if [ -f /etc/issabel.conf  ] ; then
 		grep 'cyrususerpwd' /etc/issabel.conf &> /dev/null
