@@ -66,11 +66,11 @@ if [ -d /etc/systemd ] ; then
 Description=issabel-firstboot.service
 After=getty@tty2.service
 After=mariadb.service
-Before=asterisk.service
+After=asterisk.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "chvt 2 && /usr/bin/issabel-admin-passwords --init && chvt 1"
+ExecStart=/bin/bash -c "dmesg -D && chvt 2 && /usr/bin/issabel-admin-passwords --init && chvt 1 && dmesg -E"
 #ExecStartPre=-/bin/bash -c "chvt 2 && /usr/src/geoip_install.sh && chvt 1"
 ExecReload=/bin/kill -HUP $MAINPID
 RemainAfterExit=no
