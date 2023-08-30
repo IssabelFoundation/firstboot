@@ -165,7 +165,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 %attr(755, root, root) /etc/init.d/*
 %dir %{_localstatedir}/spool/issabel-mysqldbscripts/
-/usr/share/issabel-firstboot/compat-dbscripts/01-asteriskcdrdb.sql
 /usr/share/issabel-firstboot/compat-dbscripts/02-asteriskuser-password.sql
 /usr/bin/change-passwords
 /usr/bin/issabel-admin-passwords
