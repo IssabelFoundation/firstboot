@@ -83,11 +83,11 @@ case $selSIP in
 esac
 
 (
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('bindport','$sipPort');"
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('bindport','$pjsipPort');"
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('tlsbindport','$sipTLS');"
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('tlsbindport','$pjsipTLS');"
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('websocket_enabled','$sipWS');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data,seq) VALUES('bindport','$sipPort',1);"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data,seq) VALUES('bindport','$pjsipPort',1);"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data,seq) VALUES('tlsbindport','$sipTLS',1);"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data,seq) VALUES('tlsbindport','$pjsipTLS',1);"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data,seq) VALUES('websocket_enabled','$sipWS',1);"
 ) &> /dev/null
 logo
 if ! amportal a r &> /dev/null
