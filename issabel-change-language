@@ -69,6 +69,7 @@ esac
   else
       sed -i "/^\[channels\]/a language=$selLang" $DAHDI_CFG
   fi
+  sed -i "s/.*defaultlanguage.*/defaultlanguage=$selLang/" /etc/asterisk/asterisk.conf
 ) &> /dev/null
 logo
 if ! amportal a r &> /dev/null
