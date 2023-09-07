@@ -29,13 +29,26 @@ then
     exit 1
 fi
 check_database
+
+currentLang=$(sqlite3 /var/www/db/settings.db "select value from settings where key='language'")
+langselected_en=on
+langselected_es=off
+langselected_br=off
+langselected_fr=off
+langselected_fa=off
+
+if [ "x$currentLang" != "x" ];then 
+langselected_en=off
+declare langselected_${currentLang}=on
+fi
+
 selLang=$((dialog --backtitle "Issabel" --no-tags \
 --radiolist "Select PBX language:" 15 40 10 \
- en "English" on \
- es "Spanish" off \
- pt_BR "Portuguese(BR)" off \
- fr "French" off \
- pr "Persian" off \
+ en "English" $langselected_en \
+ es "Spanish" $langselected_es \
+ pt_BR "Portuguese(BR)" $langselected_br \
+ fr "French" $langselected_fr \
+ pr "Persian" $langselected_fa \
  > /dev/tty) 2>&1)
 if [ -z $selLang ]
 then
@@ -47,17 +60,28 @@ fi
 case $selLang in
     pt_BR)
         webLang="br"
+	fopLang="pt_BR"
     ;;
     pr)
         webLang="fa"
+	fopLang="en"
+    ;;
+    fr)
+	fopLang="fr_FR"
+        webLang=$selLang
     ;;
     *)
         webLang=$selLang
+	fopLang=$selLang
     ;;
 esac
 
 (
   sqlite3 /var/www/db/settings.db "update settings set value='$webLang' where key='language'"
+  if [ -f /usr/local/fop2/fop2settings.db ]
+  then
+      sqlite3 /usr/local/fop2/fop2settings.db "update setup set value=\"'$fopLang'\" WHERE extension='SETTINGS' and context='GENERAL' and parameter='language'";
+  fi
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('sip_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO iaxsettings(keyword,data) VALUES('iax_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('sip_language','$selLang');"
