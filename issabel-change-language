@@ -99,7 +99,7 @@ esac
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('sip_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO iaxsettings(keyword,data) VALUES('iax_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('sip_language','$selLang');"
-  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO issabelpbx_settings(keyword,value) VALUES('LANGUAGE','$ipbxLang');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO issabelpbx_settings(keyword,value,type,defaultval,category,name,description) VALUES('LANGUAGE','$ipbxLang','text','en_EN','GUI Behavior','Language','General Language Setting for IssabelPBX');"
   #DAHDI
   DAHDI_CFG="/etc/asterisk/chan_dahdi.conf"
   if grep -q "language=" $DAHDI_CFG
