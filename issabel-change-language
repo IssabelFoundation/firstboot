@@ -60,19 +60,33 @@ fi
 case $selLang in
     pt_BR)
         webLang="br"
-	fopLang="pt_BR"
+        fopLang="pt_BR"
+        ipbxLang="pt_BR"
     ;;
     pr)
         webLang="fa"
-	fopLang="en"
+        fopLang="en"
+        ipbxLang="en_US"
     ;;
     fr)
-	fopLang="fr_FR"
+        fopLang="fr_FR"
         webLang=$selLang
+        ipbxLang="fr_FR"
+    ;;
+    en)
+        webLang="en"
+        fopLang="en"
+        ipbxLang="en_US"
+    ;;
+    es)
+        webLang="es"
+        fopLang="es"
+        ipbxLang="es_ES"
     ;;
     *)
         webLang=$selLang
-	fopLang=$selLang
+        fopLang=$selLang
+        ipbxLang=$selLang
     ;;
 esac
 
@@ -85,6 +99,7 @@ esac
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO sipsettings(keyword,data) VALUES('sip_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO iaxsettings(keyword,data) VALUES('iax_language','$selLang');"
   mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO pjsipsettings(keyword,data) VALUES('sip_language','$selLang');"
+  mysql -uroot -p$mysqlrootpwd asterisk -e "REPLACE INTO issabelpbx_settings(keyword,value) VALUES('LANGUAGE','$ipbxLang');"
   #DAHDI
   DAHDI_CFG="/etc/asterisk/chan_dahdi.conf"
   if grep -q "language=" $DAHDI_CFG
