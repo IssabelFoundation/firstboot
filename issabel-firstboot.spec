@@ -113,7 +113,7 @@ fi
 # database does not exist. This is only temporary and should be removed when the
 # corresponding package does this by itself.
 if [ ! -d /var/lib/mysql/asteriskcdrdb ] ; then
-	cp /usr/share/issabel-firstboot/compat-dbscripts/01-asteriskcdrdb.sql /usr/share/issabel-firstboot/compat-dbscripts/02-asteriskuser-password.sql /var/spool/issabel-mysqldbscripts/
+	cp /usr/share/issabel-firstboot/compat-dbscripts/02-asteriskuser-password.sql /var/spool/issabel-mysqldbscripts/
 fi
 
 # If installing, the system might have mysql running (upgrading from a RC).
