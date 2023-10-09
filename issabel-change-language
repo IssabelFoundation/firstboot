@@ -99,7 +99,9 @@ fi
 }
 
 function write_selection() {
-    echo "{\"webLang\":\"$webLang\",\"fopLang\":\"$fopLang\",\"ipbxLang\":\"$ipbxLang\"}" >/tmp/ipbx.lang
+    echo "webLang=$webLang" >/tmp/ipbx.lang
+    echo "fopLang=$fopLang" >>/tmp/ipbx.lang
+    echo "ipbxLang=$ipbxLang" >>/tmp/ipbx.lang
 }
 
 # Loads mysql root password
@@ -117,7 +119,9 @@ fi
 if [ $# -eq 0 ];
 then
 
-# No argument supplied, dialog asking for language
+# No argument supplied, check for /tmp/ipbx.lang 
+
+if [ ! -f /tmp/ipbx.lang ]; then
 
 check_dialog
 check_database
@@ -154,8 +158,12 @@ then
 fi
 
 set_lang_variables
-set_language
-reload_amportal
+
+else
+   # this sets languages as set_lang_variables based on selection, but from saved lang file
+   set -o allexport && source /tmp/ipbx.lang && set +o allexport
+   rm -f /tmp/ipbx.lang
+fi
 
 else
     # language argument passed, if valid just apply changes
@@ -163,11 +171,12 @@ else
     selLang=$1
     if [[ $valid_lang =~ (^|[[:space:]])$selLang($|[[:space:]]) ]]; then
 	set_lang_variables
-	echo $webLang
-	echo $fopLang
-	echo $ipbxLang
-        set_language
-        reload_amportal
+    else
+	exit 1
     fi
 
 fi
+
+# actually set the language and reloads
+set_language
+reload_amportal
