@@ -21,7 +21,8 @@ Requires: mariadb, mariadb-server, dialog
 Requires: sed, grep
 Requires: coreutils
 Requires: cracklib
-Conflicts: elastix-mysqldbdata
+Requires: issabel-config_helpers
+
 Requires(post): chkconfig, /bin/cp
 Obsoletes: elastix-firstboot
 Provides: elastix-firstboot
@@ -52,8 +53,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/sbin/
 mkdir -p $RPM_BUILD_ROOT/usr/local/sbin/
 cp issabel-firstboot $RPM_BUILD_ROOT/etc/init.d/
 cp change-passwords issabel-admin-passwords $RPM_BUILD_ROOT/usr/bin/
-cp issabel-change-language $RPM_BUILD_ROOT/usr/bin/
-cp issabel-change-sip $RPM_BUILD_ROOT/usr/bin/
 cp issabel-patreon $RPM_BUILD_ROOT/usr/bin/
 cp generate_self_signed.sh $RPM_BUILD_ROOT/usr/local/sbin
 mv compat-dbscripts/ $RPM_BUILD_ROOT/usr/share/issabel-firstboot/
@@ -168,8 +167,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/issabel-firstboot/compat-dbscripts/02-asteriskuser-password.sql
 /usr/bin/change-passwords
 /usr/bin/issabel-admin-passwords
-/usr/bin/issabel-change-language
-/usr/bin/issabel-change-sip
 /usr/bin/issabel-patreon
 %attr(755, root, root) /usr/local/sbin/generate_self_signed.sh
 
